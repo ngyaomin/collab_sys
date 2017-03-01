@@ -1,0 +1,16 @@
+<h1> All Posts </h1>
+
+<% @posts.each do |post| %>
+  <p>
+    Title: <%= post.title %>
+  </p>
+  <p>
+    Topic:  <%= post.topic %>
+  </p>
+  <p>
+    Content: <%= post.content %>
+  </p>
+  <%= link_to 'More details', post_path(post) %>
+<% end %>
+
+<%= link_to 'add new post', new_post_path %>
