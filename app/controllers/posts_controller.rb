@@ -14,8 +14,15 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = Post.new(post_params)
+    @post.user = current_user
+
     if @post.save
+      User.find_each do |user|
+        if user.subscribe
+          UserMailer.notification_email(user, @post).deliver!
+        end
+      end
       redirect_to posts_path
     else
       render 'new'
@@ -30,6 +37,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     if @post.update(post_params)
+      # cccUser.all.each do |user|
+      #   if user.subscribe
+      #     UserMailer.changes_email(user, @post).deliver!
+      #   end
+      # end
       redirect_to post_path(@post)
     else
       render 'edit'
