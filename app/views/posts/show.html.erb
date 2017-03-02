@@ -17,11 +17,16 @@
 <%= link_to 'home', posts_path %>
 
 <h3>Comments</h3>
-<% @comments.each do |comment| %>
+<% @post.comments.each do |comment| %>
   <p>
     Commenter: <%= comment.user.username %>
   </p>
   <p>
     <%= comment.content %>
+  </p>
+  <p>
+    <%= link_to 'edit comment', edit_post_comment_path(@post, comment) %>
+    <%= link_to 'delete comment', post_comment_path(@post, comment),
+    method: :delete %>
   </p>
 <% end %>
