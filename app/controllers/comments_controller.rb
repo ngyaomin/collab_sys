@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, :except => :index
+
   def index
     @post = Post.find(params[:post_id])
     @comments = @post.comments.all
@@ -9,12 +11,14 @@ class CommentsController < ApplicationController
 
   def new
     @post = Post.find(params[:post_id])
-    @comment = current_user.@post.comments.build
+    @comment = @post.comments.build
+    @comment.user = current_user
   end
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = current_user.@post.comments.build(comments_param)
+    @comment = @post.comments.build(comments_param)
+    @comment.user = current_user
       if @comment.save
         redirect_to post_path(@post)
       else
