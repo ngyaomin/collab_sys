@@ -13,6 +13,18 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  # def upvote
+  #   @post = Post.find(params[:id])
+  #   @post.liked_by current_user
+  #   redirect_to posts_path
+  # end
+
+  # def downvote
+  #   @post = Post.find(params[:id])
+  #   @post.downvote_from current_user
+  #   redirect_to posts_path
+  # end
+
   def create
     @post = Post.new(post_params)
     @post.user = current_user
