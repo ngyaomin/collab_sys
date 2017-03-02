@@ -19,7 +19,24 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comments_param)
     @comment.user = current_user
+
+    @involved_users = []
+
+    @post.comments.each do |comment|
+      @involved_users << comment.user
+    end
+
+    @involved_users << @post.user
+    @email_list = @involved_users.uniq
+
       if @comment.save
+
+        @email_list.each do |user|
+          if user.subscribe
+            UserMailer.new_comments_email(user, @comment).deliver!
+          end
+        end
+
         redirect_to post_path(@post)
       else
         render 'new'

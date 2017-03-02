@@ -36,12 +36,21 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
 
+    @involved_users = []
+
+    @post.comments.each do |comment|
+      @involved_users << comment.user
+    end
+
+    @involved_users << @post.user
+    @email_list = @involved_users.uniq
+
     if @post.update(post_params)
-      # cccUser.all.each do |user|
-      #   if user.subscribe
-      #     UserMailer.changes_email(user, @post).deliver!
-      #   end
-      # end
+      @email_list.each do |user|
+        if user.subscribe
+          UserMailer.changes_email(user, @post).deliver!
+        end
+      end
       redirect_to post_path(@post)
     else
       render 'edit'
