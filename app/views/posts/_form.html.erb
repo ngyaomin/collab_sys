@@ -1,22 +1,15 @@
-<%= form_for @post do |f| %>
-  <p>
-    <%= f.label :title %>
+<%= bootstrap_form_for @post do |f| %>
+
     <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :topic %>
+
     <%= f.text_field :topic %>
-  </p>
-  <p>
-    <%= f.label :content %>
-    <%= f.text_area :content %>
-  </p>
 
-  <p>
+    <%= f.text_area :content, :rows => "10" %>
+
     <%= f.submit %>
-  </p>
-
 
 <% end %>
 
-<%= link_to 'home', posts_path %>
+<br>
+
+<%= link_to 'Home', posts_path, :class => "btn btn-primary" %>

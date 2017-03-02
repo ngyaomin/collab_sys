@@ -1,32 +1,43 @@
-<h3>
-  Title: <%= @post.title %>
-</h3>
+<%= link_to 'Back', posts_path %>
+<h3><%= @post.title %></h3>
 <p>
   Topic:  <%= @post.topic %>
 </p>
 <p>
-  Content: <%= @post.content %>
+  Posted on <%= @post.created_at.strftime("%d %b %y") %>
 </p>
-<%= link_to 'edit', edit_post_path(@post) %>
-<%= link_to 'delete', post_path(@post),
-            method: :delete,
-            data: { confirm: 'Are you sure?' } %>
+<article><%= @post.content %></article>
 
-<%= link_to 'add new comment', new_post_comment_path(@post) %>
+<div>
+  <br>
+  <%= link_to 'Edit', edit_post_path(@post), :class => "btn btn-xs btn-primary" %>
+  <%= link_to 'Delete', post_path(@post),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              :class => "btn btn-xs btn-danger" %>
+</div>
 
-<%= link_to 'home', posts_path %>
+<div>
+  <br>
+  <%= link_to 'Add Comment', new_post_comment_path(@post) %>
+  <br>
+</div>
 
-<h3>Comments</h3>
+<h4><%= "#{@post.comments.count} Comments" %></h4>
+<hr>
+
 <% @post.comments.each do |comment| %>
   <p>
-    Commenter: <%= comment.user.username %>
+    Posted by <strong><%= comment.user.username %></strong>
+    on <%= comment.created_at.strftime("%d %b %y") %>
   </p>
-  <p>
+  <div class="well">
     <%= comment.content %>
-  </p>
-  <p>
-    <%= link_to 'edit comment', edit_post_comment_path(@post, comment) %>
-    <%= link_to 'delete comment', post_comment_path(@post, comment),
-    method: :delete %>
-  </p>
+  </div>
+
+
+    <%= link_to 'Edit', edit_post_comment_path(@post, comment), :class => "btn btn-xs btn-primary" %>
+    <%= link_to 'Delete', post_comment_path(@post, comment),
+    method: :delete, :class => "btn btn-xs btn-danger" %>
+
 <% end %>

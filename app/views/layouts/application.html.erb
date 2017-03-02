@@ -9,13 +9,30 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
-    <% else %>
-      <%= link_to 'Log in', new_user_session_path %>
-    <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+
+      <div class="navbar navbar-default">
+        <div class="col-xs-3 col-xs-offset-9">
+          <% if user_signed_in? %>
+            Hello, <%= current_user.username %> |
+            <%= link_to 'Log out', destroy_user_session_path, :method => :delete, :style => "margin: 10px" %>
+          <% else %>
+            <%= link_to 'Log in', new_user_session_path, :class => "btn btn-sm btn-primary", :style => "margin: 10px" %>
+          <% end %>
+        </div>
+      </div>
+
+    <div class="col-xs-8 col-xs-offset-2">
+      <% if notice %>
+        <div class="notice alert alert-info"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-info"><%= alert %></div>
+      <% end %>
+    </div>
+
+    <div class="col-xs-8 col-xs-offset-2">
+      <%= yield %>
+    </div>
+
   </body>
 </html>
