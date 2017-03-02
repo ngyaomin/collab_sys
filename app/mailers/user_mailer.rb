@@ -21,8 +21,8 @@ class UserMailer < ApplicationMailer
     mail(to: @user[:email] , subject: 'Post has new updates')
   end
 
-  def new_comments_email(user, post)
-    @post = post
+  def new_comments_email(user, comment)
+    @comment = comment
     @user = user
     @url = 'http://localhost:3000'
     mail(to: @user[:email] , subject: 'Post has new comment')
