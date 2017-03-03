@@ -8,6 +8,8 @@
 </p>
 <article><%= @post.content %></article>
 
+<%#= link_to "Download #{@post.post_document_url}", @post.post_document_url %>
+
 <div>
   <br>
   <%= link_to 'Edit', edit_post_path(@post), :class => "btn btn-xs btn-primary" %>

@@ -3,4 +3,6 @@ class Post < ApplicationRecord
   belongs_to :user
 
   acts_as_votable
+
+  mount_uploader :post_document, PostDocumentUploader
 end
