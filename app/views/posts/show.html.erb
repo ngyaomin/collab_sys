@@ -7,9 +7,12 @@
   Posted on <%= @post.created_at.strftime("%d %b %y") %>
 </p>
 <article><%= @post.content %></article>
-
-<%#= link_to "Download #{@post.post_document_url}", @post.post_document_url %>
-
+<hr>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= link_to "Download #{@post.post_document}", @post.post_document_url %>
+  </div>
+</div>
 <div>
   <br>
   <%= link_to 'Edit', edit_post_path(@post), :class => "btn btn-xs btn-primary" %>
